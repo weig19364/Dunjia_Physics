@@ -11,7 +11,7 @@ import traceback
 # ==========================================
 # 0. 全局配置 (Global Config)
 # ==========================================
-PORT = 8000
+PORT = int(os.environ.get("PORT", 8000))
 
 PHYSICAL_STARS = {
     1: {"name": "天蓬", "astro": "Dubhe (Alpha Ursae Majoris)"},
