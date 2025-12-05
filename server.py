@@ -1,4 +1,4 @@
-﻿import http.server
+import http.server
 import socketserver
 import json
 import datetime
@@ -11,6 +11,8 @@ import traceback
 # ==========================================
 # 0. 全局配置 (Global Config)
 # ==========================================
+# 修改：优先读取环境变量中的 PORT (适配 Render/Heroku 等云环境)
+# 如果本地运行，找不到环境变量，则默认使用 8000
 PORT = int(os.environ.get("PORT", 8000))
 
 PHYSICAL_STARS = {
@@ -291,6 +293,6 @@ class V13Handler(http.server.SimpleHTTPRequestHandler):
 class ReuseTCPServer(socketserver.TCPServer):
     allow_reuse_address = True
 
-print(">>> V13.1 FIXED SERVER running on port 8000 <<<")
+print(f">>> V13.1 CLOUD SERVER running on port {PORT} <<<")
 with ReuseTCPServer(("", PORT), V13Handler) as httpd:
     httpd.serve_forever()
